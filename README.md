@@ -69,7 +69,14 @@ pip install "roboflow[desktop]"
   <summary>Command line tool</summary>
 
   By installing roboflow python package you can use some of its functionality in the command line (without having to write python code).
-  See [CLI-COMMANDS.md](CLI-COMMANDS.md)
+  See [CLI-COMMANDS.md](CLI-COMMANDS.md) for detailed usage instructions.
+  
+  The CLI provides commands for common tasks including:
+  - Uploading datasets
+  - Downloading datasets
+  - Listing projects and models
+  - Running inference
+  - Managing workspaces
 </details>
 
 

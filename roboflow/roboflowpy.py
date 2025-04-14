@@ -196,6 +196,20 @@ def _argparser():
     _add_run_video_inference_api_parser(subparsers)
     deployment.add_deployment_parser(subparsers)
     _add_whoami_parser(subparsers)
+    
+    # Add dataset commands
+    try:
+        from roboflow.cli.commands import add_dataset_commands
+        add_dataset_commands(subparsers)
+    except ImportError:
+        pass  # CLI module not available
+        
+    # Add model commands
+    try:
+        from roboflow.cli.model_commands import add_model_commands
+        add_model_commands(subparsers)
+    except ImportError:
+        pass  # CLI module not available
 
     parser.add_argument("-v", "--version", help="show version info", action="store_true")
     parser.set_defaults(func=show_version)

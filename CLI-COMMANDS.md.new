@@ -202,49 +202,143 @@ hand-gestures
 ## Example: get project details
 
 ```bash
-roboflow project get -w tonyprivate annotation-upload
+$ roboflow project get tonyprivate/hand-gestures-fsph8
 ```
+
 ```
 {
-  "workspace": {
-    "name": "tonyprivate",
-    "url": "tonyprivate",
-    "members": 4
-  },
   "project": {
-    "id": "tonyprivate/annotation-upload",
+    "id": "tonyprivate/hand-gestures-fsph8",
     "type": "object-detection",
-    "name": "annotation-upload",
+    "name": "hand-gestures-fsph8",
     "created": 1685199749.708,
     "updated": 1695910515.48,
-    "images": 1,
-    (...)
-  },
-  "versions": []
+    "images": 387,
+    "splits": {
+      "train": 310,
+      "valid": 39,
+      "test": 38
+    },
+    "classes": {
+      "zero": 55,
+      "four": 55,
+      "one": 55,
+      "two": 55,
+      "five": 55,
+      "three": 55,
+      "Guard": 57
+    },
+    "colors": {
+      "zero": "#FF625A",
+      "four": "#FF625A",
+      "one": "#FF625A",
+      "two": "#FF625A",
+      "five": "#FF625A",
+      "three": "#FF625A",
+      "Guard": "#FF625A"
+    },
+    "annotation": "object-detection",
+    "public": false,
+    "versions": 5,
+    "unannotated": 0
+  }
 }
 ```
 
-## Example: run inference
+## Example: upload a dataset
 
-If your project has a trained model (or you are using a dataset from Roboflow Universe that has a trained model), you can run inference from the command line.
-
-Let's use [Rock-Paper-Scissors sample public dataset]([url](https://universe.roboflow.com/roboflow-58fyf/rock-paper-scissors-sxsw/model/11)) from Roboflow universe
-
-(In my case, `~/scissors.png` is me holding two fingers to the camera, you can use your own image file ;-))
+Upload a dataset from a folder to a new project in your workspace
 
 ```bash
-roboflow infer -w roboflow-58fyf -m rock-paper-scissors-sxsw/11 ~/scissors.png
+$ roboflow upload-dataset -w my-workspace -p new-project -t object-detection ~/datasets/my-dataset
 ```
+
 ```
-{
-  "x": 1230.0,
-  "y": 814.5,
-  "width": 840.0,
-  "height": 1273.0,
-  "confidence": 0.8817358016967773,
-  "class": "Scissors",
-  "class_id": 2,
-  "image_path": "/Users/tony/scissors.png",
-  "prediction_type": "ObjectDetectionModel"
-}
+loading Roboflow workspace...
+Created project my-workspace/new-project
+[UPLOADED] /home/user/datasets/my-dataset/image1.jpg (sFpTfnyLpLA8QcqPwdvf) / annotations = OK
+[UPLOADED] /home/user/datasets/my-dataset/image2.jpg (wDA2yxnLJWY5YwYwO7dP) / annotations = OK
+[UPLOADED] /home/user/datasets/my-dataset/image3.jpg (UCv7MeuvEqo7PYElatEn) / annotations = OK
+```
+
+## Example: list datasets
+
+List all datasets in your workspace
+
+```bash
+$ roboflow list-datasets -w my-workspace
+```
+
+```
+Datasets in workspace 'my-workspace':
+
+chess-pieces
+  ID: my-workspace/chess-pieces
+  Type: object-detection
+  Images: 1391
+  Versions: 3
+  Latest version: 3
+  Classes: ['bishop', 'king', 'knight', 'pawn', 'queen', 'rook']
+
+hand-gestures
+  ID: my-workspace/hand-gestures
+  Type: object-detection
+  Images: 387
+  Versions: 5
+  Latest version: 5
+  Classes: ['zero', 'four', 'one', 'two', 'five', 'three', 'Guard']
+```
+
+## Example: list models
+
+List all models in your workspace
+
+```bash
+$ roboflow list-models -w my-workspace
+```
+
+```
+Models in workspace 'my-workspace':
+
+chess-pieces
+  ID: my-workspace/chess-pieces
+  Type: object-detection
+  Model version 3:
+    Created: 1685199749.708
+    Type: object-detection
+    ID: my-workspace/chess-pieces/3
+
+hand-gestures
+  ID: my-workspace/hand-gestures
+  Type: object-detection
+  Model version 4:
+    Created: 1685199749.708
+    Type: object-detection
+    ID: my-workspace/hand-gestures/4
+  Model version 5:
+    Created: 1685199749.708
+    Type: object-detection
+    ID: my-workspace/hand-gestures/5
+```
+
+## Example: list models for a specific project
+
+```bash
+$ roboflow list-models -w my-workspace -p hand-gestures
+```
+
+```
+Models in workspace 'my-workspace':
+
+hand-gestures
+  ID: my-workspace/hand-gestures
+  Type: object-detection
+  Model version 4:
+    Created: 1685199749.708
+    Type: object-detection
+    ID: my-workspace/hand-gestures/4
+  Model version 5:
+    Created: 1685199749.708
+    Type: object-detection
+    ID: my-workspace/hand-gestures/5
 ```
